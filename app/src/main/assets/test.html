@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local WebView</title>
+    <style type="text/css">
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        button {
+            padding: 5px;
+            margin: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <button onclick="callAndroid()">Call Android</button>
+    <button onclick="getAndroidData()">Get Android Data</button>
+    <button onclick="getNetIPs()">Get Net Ips</button>
+    <button onclick="startServer()">Start Server</button>
+    <button onclick="stopServer()">Stop Server</button>
+    <button onclick="restartServer()">Restart Server</button>
+    <button onclick="getServerInfo()">Server Info</button>
+    <button onclick="toServerPage()">To Server Page</button>
+    <button onclick="clearResult()">Clear Result</button>
+    <br />
+    <br />
+    <pre id="result" style="overflow: auto;"></pre>
+
+    <script>
+        var resultHtml = "";
+        // 接收 Android 传来的数据
+        function receiveData(data) {
+            appendResult(data);
+        }
+
+        // 调用 Android 方法
+        function callAndroid() {
+            if (window.Android) {
+                Android.showToast("Hello from HTML");
+            }
+        }
+
+        // 获取 Android 数据
+        function getAndroidData() {
+            if (window.Android) {
+                let data = Android.getAndroidData();
+                appendResult(data);
+            }
+        }
+        function getNetIPs() {
+            if (window.Android) {
+                let data = Android.getNetIPs();
+                appendResult(data);
+            }
+        }
+        function getServerInfo() {
+            if (window.Android) {
+                let data = Android.getServerInfo();
+                appendResult(data);
+            }
+        }
+        function startServer() {
+            if (window.Android) {
+                let data = Android.startServer();
+                appendResult(data);
+            }
+        }
+        function stopServer() {
+            if (window.Android) {
+                let data = Android.stopServer();
+                appendResult(data);
+            }
+        }
+        function restartServer() {
+            if (window.Android) {
+                let data = Android.restartServer();
+                appendResult(data);
+            }
+        }
+        function clearResult() {
+            resultHtml = "";
+            document.getElementById('result').innerHTML = resultHtml;
+        }
+        function appendResult(data) {
+            if (data) {
+
+                resultHtml += data + "<br/>";
+            }
+            document.getElementById('result').innerHTML = resultHtml;
+        }
+        function toServerPage() {
+            location.href = "http://127.0.0.1:58080"
+        }
+        document.getElementById('result').innerHTML = resultHtml;
+    </script>
+</body>
+
+</html>
